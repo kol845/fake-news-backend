@@ -52,15 +52,23 @@ class Api
     {
         $pdo = (new PdoFactory($this->getDatabaseSettings()))->createPdo(); # PHP Database Object. From PHP DB.
         $counterApi = new CounterApi(new CounterService($pdo)); # Create a api instance with pdo as settings
+        $fnApi = new FNApi(new FNService($pdo)); # Create a api instance with pdo as settings
 
         $app->options('/{routes:.*}', function (Request $request, Response $response) {
             // CORS Pre-Flight OPTIONS Request Handler
-            return $response;
+            return $response->withHeader('Access-Control-Allow-Origin', 'http://localhost:8000')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         });
 
         $app->group('/api/counters', function (Group $group) use ($counterApi) {
             $counterApi->setup($group);
         });
+
+        $app->group('/api/articles', function (Group $group) use ($fnApi) {
+            $fnApi->setup($group);
+        });
+
 
         return $app;
     }
