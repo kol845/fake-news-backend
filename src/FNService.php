@@ -144,11 +144,18 @@ class FNService
             primary key,
             headline varchar(255),
             text longtext,
-            created_date varchar(255),
             state varchar(255),
-            last_modified varchar(255),
             format varchar(45),
-            FK_image_id int
+            FK_image_id int,
+            created BIGINT,
+            last_modified BIGINT,
+            FK_articletag_id int,
+            slug varchar(255),
+            excerpt mediumtext,
+            image_url varchar(255)
+
+            
+            
         );
 EOF;
         $this->pdo->exec($ddl);

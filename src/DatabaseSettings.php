@@ -10,7 +10,4 @@ class DatabaseSettings
     public string $password;
     public string $host;
     public string $database;
-    public string $sslCa;
-    public string $sslKey;
-    public string $sslCert;
 }
