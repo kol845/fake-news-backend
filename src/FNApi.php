@@ -31,14 +31,14 @@ class FNApi
         $group->get('', function (Request $request, Response $response, $args) { # GET api/articles
             $response->getBody()->write(json_encode($this->fnService->getArticles()));
             return $response->withHeader('Content-Type', 'application/json')
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8000')
+            ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         });
         $group->get('/{id}', function (Request $request, Response $response, $args) { # GET api/articles
             $response->getBody()->write(json_encode($this->fnService->getArticle((int)$args['id'])));
             return $response->withHeader('Content-Type', 'application/json')
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8000')
+            ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         });
@@ -52,12 +52,12 @@ class FNApi
                 $response->getBody()->write("Missing arguments");
                 return $response->withStatus(422)
                     ->withHeader('Content-Type', 'application/json')
-                    ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8000')
+                    ->withHeader('Access-Control-Allow-Origin', '*')
                     ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
                     ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
             }
             $response->getBody()->write(json_encode($this->fnService->createArticle($headline, $text, $image)));
-            return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+            return $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*');
         });
         $group->post('/{id}', function (Request $request, Response $response, $args) { # POST api/articles/{article_id}
             // $input = "Input: ";
@@ -68,21 +68,21 @@ class FNApi
                 $response->getBody()->write("Missing arguments");
                 return $response->withStatus(422)
                     ->withHeader('Content-Type', 'application/json')
-                    ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8000')
+                    ->withHeader('Access-Control-Allow-Origin', '*')
                     ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
                     ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
             }
 
             $response->getBody()->write(json_encode($this->fnService->editArticle((int)$args['id'],$headline, $text)));
             return $response->withHeader('Content-Type', 'application/json')
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8000')
+            ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');;
         });
         $group->delete('/{id}', function (Request $request, Response $response, $args) { # POST api/articles/{article_id}
             $response->getBody()->write(json_encode($this->fnService->deleteArticle((int)$args['id'])));
             return $response->withHeader('Content-Type', 'application/json')
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8000')
+            ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         });
